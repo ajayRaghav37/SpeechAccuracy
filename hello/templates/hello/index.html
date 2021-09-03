@@ -20,7 +20,7 @@
                 action.innerHTML = "<small>listening...</small>";
             }
             recognition.onspeechend = function () {
-                action.innerHTML = "<small>converting...</small>";
+                action.innerHTML = "<small>you said...</small>";
             }
             recognition.onresult = function (event) {
                 console.log(event.results);
