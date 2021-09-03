@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech to Text Recognition</title>
+</head>
+
+<body>
+    <script>
+        function Speech() {
+            
+            var output = document.getElementById("output");
+            var action = document.getElementById("action");
+            var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+            var recognition = new SpeechRecognition();
+            recognition.onstart = function () {
+                action.innerHTML = "<small>listening...</small>";
+            }
+            recognition.onspeechend = function () {
+                action.innerHTML = "<small>converting...</small>";
+            }
+            recognition.onresult = function (event) {
+                console.log(event.results);
+                var transcript = event.results[0][0].transcript;
+                output.innerHTML = "<b>Transcript: </b>" + transcript;
+            }
+
+            recognition.start();
+        }
+    </script>
+    <p>
+        <button type="button" onclick="Speech()">Speak</button>
+        <span id="action"></span>
+    </p>
+    <div id="output"></div>
+    <p>
+        <textarea name="Original Data" id="Text" cols="30" rows="10" placeholder="Your Text"></textarea>
+    </p>
+    <p>
+        <button type="submit">Submit</button>
+    </p>
+</body>
+
+</html>
