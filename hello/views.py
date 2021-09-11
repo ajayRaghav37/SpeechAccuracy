@@ -38,8 +38,9 @@ def update(request):
 def compare(request):
     if request.method == 'POST':
         request_body = json.loads(request.body)
-        text1 = request_body['text1']
-        text2 = request_body['text2']
+        text1 = request_body['text']
+        f = open("speech.txt", "r")
+        text2 = f.read()
 
         def similarity(string1, string2):
             corpus = [string1, string2]

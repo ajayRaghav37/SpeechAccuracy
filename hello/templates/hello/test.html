@@ -31,14 +31,12 @@
         }
 
         async function Submit() {
-            const text1 = document.getElementById('Text').value;
-            const text2 = document.getElementById('output').innerText;
+            const text = document.getElementById('output').innerText;
 
             const res = await fetch('/compare/', {
                 headers: { "content-type": "application/json; charset=UTF-8" },
                 body: JSON.stringify({
-                    text1,
-                    text2
+                    text
                 }),
                 method: "POST",
                 mode: "cors"
@@ -56,9 +54,6 @@
         <span id="action"></span>
     </p>
     <div id="output"></div>
-    <p>
-        <textarea name="Original Data" id="Text" cols="30" rows="10" placeholder="Your Text"></textarea>
-    </p>
     <p>
         <button type="submit" onclick="Submit()">Submit</button>
         <span id="result"></span>
