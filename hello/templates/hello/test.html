@@ -46,7 +46,7 @@
 
             // console.log(await data);
 
-            document.getElementById('result').innerText = Math.round((await data).weighted_avg) + ' %';
+            document.getElementById('result').innerText = (await data).weighted_avg;
         }
     </script>
     <p>

@@ -39,8 +39,13 @@ def compare(request):
     if request.method == 'POST':
         request_body = json.loads(request.body)
         text1 = request_body['text']
-        f = open("speech.txt", "r")
-        text2 = f.read()
+        try:
+            f = open("speech.txt", "r")
+            text2 = f.read()
+        except:
+            return JsonResponse({
+            "weighted_avg": "No speech found to compare with"
+        })
 
         def similarity(string1, string2):
             corpus = [string1, string2]
@@ -90,7 +95,7 @@ def compare(request):
             "semantic": sim,
             "semantic_scaled_down": max((sim - 70) * 100 / 30, 0),
             "lexical": jac_sim,
-            "weighted_avg": (x*sim + y*jac_sim)/10
+            "weighted_avg": str(round((x*sim + y*jac_sim)/10,2)) + ' %'
         })
     else:
         return HttpResponseNotFound('Woah!')
