@@ -11,7 +11,6 @@
 <body>
     <script>
         function Speech() {
-            
             var output = document.getElementById("output");
             var action = document.getElementById("action");
             var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
@@ -25,10 +24,31 @@
             recognition.onresult = function (event) {
                 console.log(event.results);
                 var transcript = event.results[0][0].transcript;
-                output.innerHTML = "<b>Transcript: </b>" + transcript;
+                output.innerHTML = transcript;
             }
 
             recognition.start();
+        }
+
+        async function Submit() {
+            const text1 = document.getElementById('Text').value;
+            const text2 = document.getElementById('output').innerText;
+
+            const res = await fetch('/compare/', {
+                headers: { "content-type": "application/json; charset=UTF-8" },
+                body: JSON.stringify({
+                    text1,
+                    text2
+                }),
+                method: "POST",
+                mode: "cors"
+            });
+
+            const data = res.json();
+
+            // console.log(await data);
+
+            document.getElementById('result').innerText = Math.round((await data).weighted_avg) + ' %';
         }
     </script>
     <p>
@@ -40,7 +60,8 @@
         <textarea name="Original Data" id="Text" cols="30" rows="10" placeholder="Your Text"></textarea>
     </p>
     <p>
-        <button type="submit">Submit</button>
+        <button type="submit" onclick="Submit()">Submit</button>
+        <span id="result"></span>
     </p>
 </body>
 
