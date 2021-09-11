@@ -19,7 +19,15 @@ def test(request):
     return render(request, 'hello/test.html')
 
 def speech(request):
-    return render(request, 'hello/speech.html')
+    try:
+        f = open("speech.txt", "r")
+        text = f.read()
+    except:
+        text = ''
+
+    return render(request, 'hello/speech.html', {
+        "speech": text
+    })
 
 
 @csrf_exempt
