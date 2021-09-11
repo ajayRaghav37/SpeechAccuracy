@@ -2,6 +2,10 @@ import json
 from django.http.response import HttpResponseNotFound, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+
+import nltk
+nltk.download('punkt')
+
 from nltk.tokenize import word_tokenize
 from gensim import corpora
 import gensim.downloader as api
