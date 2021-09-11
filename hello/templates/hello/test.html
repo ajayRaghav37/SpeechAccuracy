@@ -5,7 +5,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Speech to Text Recognition</title>
+    <title>Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body{
+            background-color: #5F9EA0;
+            color: white;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        button{
+            display: flex;
+            margin: auto;
+            background-color: #2F4F4F;
+            font-size: 20px;
+            text-align: center;
+            color: white;
+        }
+        #action{
+            font-size: 18px;
+            color: white;
+            text-align: center;
+        }
+        #result{
+            font-size: 18px;
+            color: white;
+            text-align: center;
+        }
+        textarea{
+            display: flex;
+            margin: auto;
+            background-color: #B6BFC6;
+            font-size: 15px;
+            width: 50%;
+        }
+    </style>
 </head>
 
 <body>
@@ -31,7 +64,7 @@
         }
 
         async function Submit() {
-            const text = document.getElementById('output').innerText;
+            const text = document.getElementById('output').value;
 
             const res = await fetch('/compare/', {
                 headers: { "content-type": "application/json; charset=UTF-8" },
@@ -49,15 +82,18 @@
             document.getElementById('result').innerText = (await data).weighted_avg;
         }
     </script>
+    <div>
+        <button type="button" onclick="Speech()"><i class="fa fa-microphone"></i></button>
+        <p id="action">click the mic button to start recording</p>
+    </div>
+    
     <p>
-        <button type="button" onclick="Speech()">Speak</button>
-        <span id="action"></span>
+        <textarea name="Speech to text" id="output" readonly cols="36" rows="28" placeholder="Everything you say will appear here when you are done speaking..."></textarea>
     </p>
-    <div id="output"></div>
-    <p>
+    <div>
         <button type="submit" onclick="Submit()">Submit</button>
-        <span id="result"></span>
-    </p>
-</body>
+        <p id="result">score will appear here</p>
+    </div>
+    </body>
 
 </html>
