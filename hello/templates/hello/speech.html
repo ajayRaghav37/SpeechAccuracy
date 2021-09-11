@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech to Text Recognition</title>
+</head>
+
+<body>
+    <script>
+        async function Submit() {
+            const text = document.getElementById('Text').value;
+
+            const res = await fetch('/update/', {
+                headers: { "content-type": "application/json; charset=UTF-8" },
+                body: JSON.stringify({
+                    text
+                }),
+                method: "POST",
+                mode: "cors"
+            });
+
+            const data = res.json();
+
+            // console.log(await data);
+
+            document.getElementById('result').innerText = (await data).status;
+        }
+    </script>
+    <p>
+        <textarea name="Original Data" id="Text" cols="30" rows="10" placeholder="Your Text"></textarea>
+    </p>
+    <p>
+        <button type="submit" onclick="Submit()">Submit</button>
+        <span id="result"></span>
+    </p>
+</body>
+
+</html>

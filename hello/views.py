@@ -11,8 +11,27 @@ from gensim.matutils import softcossim
 glove = api.load("glove-wiki-gigaword-50")
 
 
-def index(request):
-    return render(request, 'hello/index.html')
+def test(request):
+    return render(request, 'hello/test.html')
+
+def speech(request):
+    return render(request, 'hello/speech.html')
+
+
+@csrf_exempt
+def update(request):
+    if request.method == 'POST':
+        request_body = json.loads(request.body)
+        text = request_body['text']
+        f = open("speech.txt", "w")
+        f.write(text)
+        f.close()
+        return JsonResponse({
+            # "averageScore": max((sum(scores)/len(scores) - 50) * 100 / 50, 0),
+            "status": "Speech updated successfully"
+        })
+    else:
+        return HttpResponseNotFound('Woah!')
 
 
 @csrf_exempt

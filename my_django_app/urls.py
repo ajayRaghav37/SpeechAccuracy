@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from hello.views import index, compare
+from hello.views import test, speech, compare, update
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/', index),
+    path('test/', test),
+    path('speech/', speech),
+    path('update/', update),
     path('compare/', compare)
 ]
